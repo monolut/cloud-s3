@@ -1,6 +1,6 @@
 package com.clouds3.userservice.config;
 
-import com.clouds3.userservice.filter.JwtAuthenticationFilter;
+import com.clouds3.authcommon.filter.JwtAuthenticationFilter;
 import com.clouds3.userservice.service.auth.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

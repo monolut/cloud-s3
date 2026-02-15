@@ -9,13 +9,7 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = "spring")
 public interface RefreshTokenMapper{
 
-    @Mappings({
-                    @Mapping(source = "userId", target = "user.id")
-    })
     RefreshTokenEntity toEntity(RefreshTokenDto refreshTokenDto);
 
-    @Mappings({
-            @Mapping(source = "user.id", target = "userId")
-    })
     RefreshTokenDto toDto(RefreshTokenEntity refreshTokenEntity);
 }

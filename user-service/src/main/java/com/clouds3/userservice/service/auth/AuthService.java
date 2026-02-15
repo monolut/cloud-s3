@@ -1,5 +1,6 @@
 package com.clouds3.userservice.service.auth;
 
+import com.clouds3.authcommon.service.JwtService;
 import com.clouds3.userservice.dto.auth.AuthRequest;
 import com.clouds3.userservice.dto.auth.AuthResponse;
 import com.clouds3.userservice.dto.auth.RegisterRequest;
@@ -62,7 +63,11 @@ public class AuthService {
 
         log.debug("Refresh token validated for userId={}", user.getId());
 
-        String newAccessToken = jwtService.createAccessToken(user);
+        String newAccessToken = jwtService.createAccessToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole().getRoleName().toString()
+        );
         RefreshTokenEntity newRefreshToken =
                 refreshTokenService.createRefreshToken(user);
 
@@ -94,7 +99,11 @@ public class AuthService {
 
         log.debug("Authentication successful for userId={}", user.getId());
 
-        String accessToken = jwtService.createAccessToken(user);
+        String accessToken = jwtService.createAccessToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole().getRoleName().toString()
+        );
         RefreshTokenEntity refreshToken =
                 refreshTokenService.createRefreshToken(user);
 

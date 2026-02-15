@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class RoleDto {
     private Long id;
 
-    @Column(name = "role_name", nullable = false, unique = true)
     @NotNull(message = "Role name cannot be null")
     private Role role;
 }

@@ -1,6 +1,5 @@
-package com.clouds3.userservice.service.auth;
+package com.clouds3.authcommon.service;
 
-import com.clouds3.userservice.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -9,7 +8,6 @@ import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -24,20 +22,28 @@ public class JwtService {
     @Value("${secret-key}")
     private String secret;
 
-    public String createAccessToken(UserEntity user) {
+    public JwtService(String secret){
+        this.secret = secret;
+    }
 
-        log.debug("Creating access token for userId={}", user.getId());
+    public String createAccessToken(
+            Long userId,
+            String email,
+            String role
+    ) {
+
+        log.debug("Creating access token for userId={}", userId);
 
         String token = Jwts.builder()
-                .setSubject(user.getId().toString())
-                .claim("email", user.getEmail())
-                .claim("role", "ROLE_" + user.getRole().getRoleName())
+                .setSubject(userId.toString())
+                .claim("email", email)
+                .claim("role", "ROLE_" + role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(getSigninKey(), SignatureAlgorithm.HS256)
                 .compact();
 
-        log.debug("Access token successfully created for userId={}", user.getId());
+        log.debug("Access token successfully created for userId={}", userId);
 
         return token;
     }
