@@ -1,4 +1,4 @@
-package com.clouds3.bucketservice.config;
+package com.clouds3.objectservice.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,9 +27,9 @@ public class DataSourceConfig {
         var dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+        dataSource.setUrl(url);
 
         return dataSource;
     }

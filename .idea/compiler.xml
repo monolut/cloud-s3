@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="object-service" />
+        <module name="user-service" />
         <module name="auth-common" />
         <module name="bucket-service" />
-        <module name="user-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -18,6 +19,7 @@
       <module name="auth-common" options="-parameters" />
       <module name="bucket-service" options="-parameters" />
       <module name="cloud-s3-parent" options="" />
+      <module name="object-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>

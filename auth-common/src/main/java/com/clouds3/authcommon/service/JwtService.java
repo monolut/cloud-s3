@@ -19,10 +19,9 @@ public class JwtService {
 
     private static final Logger log = LoggerFactory.getLogger(JwtService.class);
 
-    @Value("${secret-key}")
-    private String secret;
+    private final String secret;
 
-    public JwtService(String secret){
+    public JwtService(@Value("${secret-key}") String secret){
         this.secret = secret;
     }
 
