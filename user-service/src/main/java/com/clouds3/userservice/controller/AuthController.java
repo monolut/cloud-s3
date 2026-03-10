@@ -25,7 +25,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequestDto) {
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody AuthRequest authRequestDto)
+    {
 
         log.info("POST /auth/login request received for email={}",
                 authRequestDto.getUsername());
@@ -34,7 +36,9 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<AuthResponse> refreshToken(@RequestParam String refreshToken) {
+    public ResponseEntity<AuthResponse> refreshToken(
+            @RequestParam String refreshToken
+    ) {
 
         log.info("POST /auth/refresh request received");
 
@@ -42,7 +46,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody RegisterRequest dto) {
+    public ResponseEntity<Void> register(
+            @RequestBody RegisterRequest dto
+    ) {
 
         log.info("POST /auth/register request received for email={}",
                 dto.getEmail());
@@ -52,7 +58,9 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestParam String refreshToken) {
+    public ResponseEntity<Void> logout(
+            @RequestParam String refreshToken
+    ) {
 
         log.info("POST /auth/logout request received");
 
@@ -61,7 +69,9 @@ public class AuthController {
     }
 
     @PostMapping("/logout/{userId}")
-    public ResponseEntity<Void> logoutAll(@PathVariable Long userId) {
+    public ResponseEntity<Void> logoutAll(
+            @PathVariable Long userId
+    ) {
 
         log.info("POST /auth/logout/{} request received", userId);
 

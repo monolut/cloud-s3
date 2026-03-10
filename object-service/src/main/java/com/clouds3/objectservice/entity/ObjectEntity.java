@@ -37,5 +37,5 @@ public class ObjectEntity {
     private Long size;
 
     @Column(nullable = false, name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 }

@@ -21,7 +21,7 @@ public class RefreshTokenClean {
     }
 
     @Transactional
-    @Scheduled(fixedRate = 60 * 60)
+    @Scheduled(fixedRate = 1000 * 60 * 60)
     public void clean() {
         log.info("Refresh token cleanup started");
         jdbcTemplate.update("DELETE FROM refresh_token WHERE revoked = true OR expires_at < now()");
