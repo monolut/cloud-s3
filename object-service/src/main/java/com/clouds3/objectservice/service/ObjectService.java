@@ -8,6 +8,7 @@ import com.clouds3.objectservice.exceptions.ObjectNotFound;
 import com.clouds3.objectservice.mapper.ObjectMapper;
 import com.clouds3.objectservice.repository.ObjectRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -31,16 +32,18 @@ public class ObjectService {
     private final ObjectRepository objectRepository;
     private final BucketClient bucketClient;
 
-    private final Path storageRoot = Paths.get("C:/Users/nicol/Desktop/storage");
+    private final Path storageRoot;
 
     public ObjectService(
             ObjectMapper objectMapper,
             ObjectRepository objectRepository,
-            BucketClient bucketClient
+            BucketClient bucketClient,
+            @Value("${STORAGE_BASE_PATH}") String storageBasePath
     ) {
         this.objectMapper = objectMapper;
         this.objectRepository = objectRepository;
         this.bucketClient = bucketClient;
+        this.storageRoot = Paths.get(storageBasePath);
         initStorage();
     }
 
