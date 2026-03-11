@@ -11,6 +11,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BucketMapper {
+
     BucketEntity toEntity(BucketDto dto);
 
     @Named("full")

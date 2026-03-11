@@ -7,9 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -52,9 +55,15 @@ public class BucketController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BucketDto>> getBuckets(
-            @RequestParam Long ownerId
-    ) {
+    public ResponseEntity<List<BucketDto>> getBuckets() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Long ownerId = Optional.ofNullable(authentication)
+                        .map(Authentication::getPrincipal)
+                        .map(Object::toString)
+                        .map(Long::valueOf)
+                        .orElseThrow(() -> new RuntimeException("User is not authenticated"));
 
         log.info("GET /buckets?ownerId={}",
                 ownerId);

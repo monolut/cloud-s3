@@ -5,6 +5,5 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
-@SuperBuilder
 public class BucketMetadataDto extends BucketDto{
 }

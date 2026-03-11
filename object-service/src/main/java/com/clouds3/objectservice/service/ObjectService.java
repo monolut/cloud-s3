@@ -140,14 +140,15 @@ public class ObjectService {
                 .map(Long::valueOf)
                 .orElseThrow(() -> new RuntimeException("User is not authenticated"));
 
-        ObjectEntity objectEntity = new ObjectEntity();
-        objectEntity.setObjectKey(objectKey);
-        objectEntity.setBucketId(bucketId);
-        objectEntity.setOwnerId(ownerId);
-        objectEntity.setOriginalFileName(file.getName());
-        objectEntity.setContentType(file.getContentType());
-        objectEntity.setSize(file.getSize());
-        objectEntity.setCreatedAt(LocalDateTime.now());
+        ObjectEntity objectEntity = ObjectEntity.builder()
+                .objectKey(objectKey)
+                .bucketId(bucketId)
+                .ownerId(ownerId)
+                .originalFileName(file.getName())
+                .contentType(file.getContentType())
+                .size(file.getSize())
+                .createdAt(LocalDateTime.now())
+                .build();
 
         objectRepository.save(objectEntity);
 
