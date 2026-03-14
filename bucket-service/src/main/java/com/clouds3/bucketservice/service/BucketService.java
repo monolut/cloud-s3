@@ -54,7 +54,7 @@ public class BucketService {
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .size(0L)
-                .objectCount(0)
+                .objectCount(0L)
                 .blocked(false)
                 .build();
 

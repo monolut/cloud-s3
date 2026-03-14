@@ -47,6 +47,14 @@
                 <version>${mapstruct.version}</version>
             </dependency>
 
+            <!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok-mapstruct-binding -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-mapstruct-binding</artifactId>
+                <version>0.1.0</version>
+                <scope>compile</scope>
+            </dependency>
+
             <!-- Lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

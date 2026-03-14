@@ -19,6 +19,6 @@ public class BucketDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Long size;
-    private Integer objectCount;
+    private Long objectCount;
     private boolean blocked;
 }

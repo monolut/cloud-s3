@@ -2,6 +2,7 @@ package com.clouds3.objectservice.service;
 
 import com.clouds3.objectservice.client.BucketClient;
 import com.clouds3.objectservice.dto.BucketDto;
+import com.clouds3.objectservice.dto.BucketStatsDto;
 import com.clouds3.objectservice.dto.ObjectResponseDto;
 import com.clouds3.objectservice.entity.ObjectEntity;
 import com.clouds3.objectservice.exceptions.ObjectNotFound;
@@ -180,6 +181,19 @@ public class ObjectService {
         }
 
         return filePath;
+    }
+
+    @Transactional(readOnly = true)
+    public BucketStatsDto getBucketStats(
+            Long bucketId
+    ) {
+        BucketStatsDto stats = objectRepository.getBucketStats(bucketId);
+
+        if (stats == null) {
+            return new BucketStatsDto(0, 0L);
+        }
+
+        return stats;
     }
 
     private Path getObjectPath(

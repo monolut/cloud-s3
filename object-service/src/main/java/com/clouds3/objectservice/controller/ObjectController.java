@@ -1,5 +1,6 @@
 package com.clouds3.objectservice.controller;
 
+import com.clouds3.objectservice.dto.BucketStatsDto;
 import com.clouds3.objectservice.dto.ObjectResponseDto;
 import com.clouds3.objectservice.service.ObjectService;
 import lombok.extern.slf4j.Slf4j;
@@ -100,5 +101,16 @@ public class ObjectController {
                         "attachment; filename=\"" + objectKey + "\"")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
+    }
+
+    @GetMapping("/{bucketId}/stats")
+    public BucketStatsDto getBucketStats(
+            @PathVariable Long bucketId
+    ) {
+
+        log.info("GET /{bucketId}/stats request received for bucketId={}",
+                bucketId);
+
+        return objectService.getBucketStats(bucketId);
     }
 }

@@ -39,7 +39,7 @@ public class BucketEntity {
     private Long size;
 
     @Column
-    private Integer objectCount;
+    private Long objectCount;
 
     @Column(nullable = false)
     private boolean blocked;

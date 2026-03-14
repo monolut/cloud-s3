@@ -1,7 +1,9 @@
 package com.clouds3.bucketservice.service;
 
+import com.clouds3.bucketservice.client.ObjectClient;
 import com.clouds3.bucketservice.dto.BucketDto;
 import com.clouds3.bucketservice.dto.BucketMetadataDto;
+import com.clouds3.bucketservice.dto.BucketStatsDto;
 import com.clouds3.bucketservice.entity.BucketEntity;
 import com.clouds3.bucketservice.exception.BucketNotFoundException;
 import com.clouds3.bucketservice.mapper.BucketMapper;
@@ -19,14 +21,17 @@ public class BucketAdminService {
 
     private final BucketRepository bucketRepository;
     private final BucketMapper bucketMapper;
+    private final ObjectClient objectClient;
 
     @Autowired
     public BucketAdminService(
             BucketRepository bucketRepository,
-            BucketMapper bucketMapper
+            BucketMapper bucketMapper,
+            ObjectClient objectClient
     ) {
         this.bucketRepository = bucketRepository;
         this.bucketMapper = bucketMapper;
+        this.objectClient = objectClient;
     }
 
     @Transactional(readOnly = true)
@@ -60,16 +65,15 @@ public class BucketAdminService {
         BucketEntity bucket = bucketRepository.findById(bucketId)
                 .orElseThrow(() -> new BucketNotFoundException(bucketId));
 
-        // TODO: when will be ObjectService
-        long recalculatedSize = bucket.getSize();
-        int recalculatedCount = bucket.getObjectCount();
+        BucketStatsDto bucketStats = objectClient.getBucketStats(bucketId);
+
+        long recalculatedSize = bucketStats.getSize();
+        long recalculatedCount = bucketStats.getCount();
 
         bucket.setSize(recalculatedSize);
         bucket.setObjectCount(recalculatedCount);
 
-        bucketRepository.save(bucket);
-
-        log.warn(
+        log.info(
                 "ADMIN SERVICE | Recalculated metadata for bucketId={} size={} count={}",
                 bucketId, recalculatedSize, recalculatedCount
         );
